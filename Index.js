@@ -4,21 +4,25 @@ const app = express();
 
 app.use(express.json()) 
 
+const players = [];
 
 app.get('/players', (req, resp) => {
 
-    console.log(req.query)
-    console.log("Get no server");
-    resp.status(200).send("Dados enviados ao VSCODE");
+    resp.status(200).json(players);
 } )
 
 app.get('/players/:id/:outro', (req, resp) => {
 
-    console.log(req.params.id)
-    console.log(req.params.outro)
-    console.log("Get no server");
-    resp.status(200).send('Dados enviados ao VSCODE');
+    const player = players.find(man => man.id === parseInt(req.params.id))
+
+    if (!player){
+
+       return resp.status(404).send("Nome nao encontrado")
+    }
+
+   return resp.status(200).json(player);
 } )
+
 
 app.post('/players', (req, resp) => {
 
