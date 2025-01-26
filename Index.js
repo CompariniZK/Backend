@@ -23,20 +23,44 @@ app.get('/players/:id/:outro', (req, resp) => {
    return resp.status(200).json(player);
 } )
 
+app.post('/players', (req, resp) =>{
 
-app.post('/players', (req, resp) => {
+    const Post = req.body;
+    
+    players.push(Post)
+    console.log("Player adicionado")
 
-    console.log(req.body)
-    console.log("Get no server");
-    resp.status(200).send(req.body);
-} )
+    resp.status(200).send("Player adicionado" + Post)
 
-app.put('/players/:id', (req, resp) => {
 
-    console.log(req.body)
-    console.log("Atualizamos");
-    resp.status(200).send(req.body);
-} )
+})
+
+app.put('/player/:id', (req, resp) =>{
+
+        const Put = req.body;
+        
+        const idURL = parseInt(req.params.id);
+
+        const test = players.findIndex(man => man.id === idURL);
+
+        if(test !== -1){
+
+            players[test] = {...players[test], ...Put};
+
+
+            resp.status(200).json(players[test]);
+
+
+        }
+
+        else{
+
+            resp.status(404).send("Nao encontrado")
+
+        }
+
+})
+
 
 
 
@@ -48,10 +72,25 @@ console.log('inicio servidor da api')
 })
 
 
-app.delete('/players/:id', (req, resp) => {
+app.delete('/players/:id', (req, resp) =>{
 
-    console.log(req.body)
-    console.log("Deletamos");
-    resp.status(200).send(req.body);
-} )
+    const del = parseInt(req.params.id)
+
+    const test = players.findIndex(man => man.id === del )
+
+    if(test !== -1){
+
+        players.splice(test, 1)
+
+        resp.status(200).json(players)
+
+    }
+    
+    else{
+
+        resp.status(404).send("Nao encontrado")
+
+    }
+
+}) 
 
