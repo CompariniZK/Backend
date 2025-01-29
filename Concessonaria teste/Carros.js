@@ -1,7 +1,7 @@
 const express = require('express')
 
 const api = express()
-
+api.use(express.json());
 
 const concessonaria = [];
 
@@ -23,9 +23,8 @@ api.post('/veiculos', (req,resp) => {
 
     const put = req.body;
     concessonaria.push(put)
-
     resp.status(200).json(put)
-    
+
 
 
 }
