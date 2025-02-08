@@ -1,21 +1,52 @@
-    INSERT INTO Carros (id, marca, modelo, ano, cor, preço)
-    VALUES 
+CREATE TABLE Product(
+
+    id INTEGER PRIMARY KEY,
+    nome VARCHAR(100),
+    preco DECIMAL(10, 2),
+    categoria VARCHAR(100)
+
+);
+
+CREATE TABLE Cliente(
+
+    id INTEGER PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100)
     
-    (3, 'Chevrolet', 'Celta', 2022, 'Red', 8000.00 );
+);
 
-    INSERT INTO Clientes (id, nome, email, telefone, endereco)
-    VALUES (1, 'Gabriel', 'gabrielcomparini51@gmail.com', 40028922, 'Rua dos Alfeineiros')
-    INSERT INTO Clientes (id, nome, email, telefone, endereco)
-    VALUES (2, 'Lobo', 'lobinho@gmail.com', 445175521, 'Rua dos Alfeineiros')
+CREATE TABLE Vendas(
 
-    INSERT INTO Vendas (id, cliente_id, carro_id, data_venda, valor)
-   
-    VALUES (2, 2, 3,'2021-10-15', 8.000);
+    id INTEGER PRIMARY KEY,
+    cliente_id INTEGER,
+    produto_id INTEGER, 
+    data_venda DATE,
+
+    CONSTRAINT fk_cliente FOREIGN KEY (cliente_id) REFERENCES Cliente(id),
+    CONSTRAINT fk_product FOREIGN KEY (produto_id) REFERENCES  Product(id)
+);
 
 
+INSERT INTO Product (id, nome, preco, categoria)
+VALUES 
+    (1, 'GTA_V', 30.00, 'Bandidagem'),
+    (2, 'GOD OF WAR R.', 70.00, 'Mitologia'),
+    (3, 'Call of Duty BO4', 70.00, 'FPS Guerra')
 
-    SELECT Clientes.nome, Carros.marca, Carros.modelo, Carros.ano, Carros.cor
-    FROM Vendas
-    INNER JOIN Clientes ON Vendas.cliente_id = Clientes.id
-    INNER JOIN Carros ON Vendas.carro_id = Carros.id 
 
+INSERT INTO Cliente (id, nome, email)
+VALUES 
+
+    (1, 'Gabriel', 'gabrielcomparini@gmail.com' ),
+    (2, 'Lobinho', 'rafaelcomparini@gmail.com' );
+
+
+INSERT INTO Vendas (id, cliente_id, produto_id, data_venda)    
+VALUES 
+    
+    (1, 1, 3, '2024-08-07'),
+    (2, 2, 1, '2024-09-05');
+
+SELECT * FROM Product;
+SELECT * FROM Cliente;
+SELECT * FROM Vendas;
