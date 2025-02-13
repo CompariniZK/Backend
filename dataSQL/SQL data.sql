@@ -41,12 +41,33 @@ VALUES
     (2, 'Lobinho', 'rafaelcomparini@gmail.com' );
 
 
-INSERT INTO Vendas (id, cliente_id, produto_id, data_venda)    
+INSERT INTO Vendas (id, cliente_id, produto_id, data_venda, Valor_Venda)    
 VALUES 
     
-    (1, 1, 3, '2024-08-07'),
-    (2, 2, 1, '2024-09-05');
+    (3, 1, 2, '2024-09-05', 80.00);
+ALTER TABLE Vendas
+ADD COLUMN Valor_Venda DECIMAL(10,2);
+
+
+
+SELECT categoria, COUNT(*)AS quantidade_produto
+FROM Product
+GROUP BY categoria
+ORDER BY quantidade_produto ASC;
+
+SELECT 
+cl.nome, pr.nome, sum(ve.Valor_Venda) AS total_vendas
+ FROM Vendas ve 
+INNER JOIN Product pr ON ve.produto_id = pr.id
+INNER JOIN Cliente cl ON ve.cliente_id = cl.id  
+GROUP BY 
+cl.nome, pr.nome
+ORDER BY cl.nome
+
 
 SELECT * FROM Product;
 SELECT * FROM Cliente;
 SELECT * FROM Vendas;
+
+
+
