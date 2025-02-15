@@ -48,6 +48,9 @@ VALUES
 ALTER TABLE Vendas
 ADD COLUMN Valor_Venda DECIMAL(10,2);
 
+UPDATE Vendas
+SET Valor_Venda = 
+Where id = 3
 
 
 SELECT categoria, COUNT(*)AS quantidade_produto
@@ -69,5 +72,15 @@ SELECT * FROM Product;
 SELECT * FROM Cliente;
 SELECT * FROM Vendas;
 
+//Manipulations 15/02//
+
+SELECT cl.nome, p.nome, p.preco, ve.Valor_Venda 
+FROM Vendas ve
+JOIN Cliente cl ON cl.id = ve.cliente_id
+JOIN Product p ON p.id = ve.produto_id
 
 
+SELECT ve.id AS ID_VENDA, cl.nome, pr.preco 
+FROM Vendas ve
+JOIN Cliente cl ON cl.id = ve.cliente_id
+JOIN Product pr ON pr.id = ve.produto_id
